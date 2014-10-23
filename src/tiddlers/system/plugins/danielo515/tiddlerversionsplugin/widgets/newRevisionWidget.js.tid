@@ -1,0 +1,115 @@
+author: Danielo515
+created: 20141023173147984
+creator: Danielo515
+modified: 20141023173710653
+modifier: Danielo515
+module-type: widget
+title: $:/plugins/danielo515/tiddlerversionsplugin/widgets/newRevisionWidget.js
+type: application/javascript
+
+/*\
+title: $:/plugins/danielo515/tiddlerversionsplugin/widgets/newRevisionWidget.js
+type: application/javascript
+module-type: widget
+
+newrevision widget
+
+```
+<$newrevision title="name" >Buttontext</$newtiddler>
+```
+
+\*/
+(function(){
+
+/*jslint node: true, browser: true */
+/*global $tw: false */
+"use strict";
+
+var Widget = require("$:/core/modules/widgets/widget.js").widget;
+
+var newversionWidget = function(parseTreeNode,options) {
+	this.initialise(parseTreeNode,options);
+};
+
+/*
+Inherit from the base widget class
+*/
+newversionWidget.prototype = new Widget();
+
+/*
+Render this widget into the DOM
+*/
+newversionWidget.prototype.render = function(parent,nextSibling) {
+	var self = this;
+	// Remember parent
+	this.parentDomNode = parent;
+	// Compute attributes and execute state
+	this.computeAttributes();
+	this.execute();
+	// Create element
+	var domNode = this.document.createElement("button");
+	// Assign classes
+	domNode.className = this.newrevisionClass;
+	// Assign styles
+	if(this.style) {
+		domNode.setAttribute("style",this.style);
+	}
+	// Add a click event handler
+	$tw.utils.addEventListeners(domNode,[
+		{name: "click", handlerObject: this, handlerMethod: "handleClickEvent"}
+	]);
+	// Insert element
+	parent.insertBefore(domNode,nextSibling);
+	this.renderChildren(domNode,null);
+	this.domNodes.push(domNode);
+};
+
+newversionWidget.prototype.handleClickEvent = function(event) {
+	var original = this.wiki.getTiddler(this.originalTitle);
+	if(original){
+		var originalFields=original.fields,
+		    basetitle = "$:/revisions/"+this.originalTitle,
+		    newFields={},
+		    modificationFields = this.wiki.getModificationFields(),
+		    created = this.wiki.getCreationFields(),
+		    title = [basetitle,"/",1].join(""),
+		    t=1;
+		for(; this.wiki.tiddlerExists(title); t++) {
+			title = [basetitle,"/",t].join("");
+		}
+		newFields.title = title;
+		newFields.revisionof=this.originalTitle;
+		newFields.revisionnumber=t;
+		
+		
+		this.wiki.addTiddler(new $tw.Tiddler(originalFields,modificationFields,created,newFields));
+	}
+	
+};
+
+
+/*
+Compute the internal state of the widget
+*/
+newversionWidget.prototype.execute = function() {
+	// Get attributes
+	this.originalTitle = this.getAttribute("title");
+	this.newrevisionClass = this.getAttribute("class","");
+	this.makeChildWidgets();
+};
+
+/*
+Selectively refreshes the widget if needed. Returns true if the widget or any of its children needed re-rendering
+*/
+newversionWidget.prototype.refresh = function(changedTiddlers) {
+	var changedAttributes = this.computeAttributes();
+	if(changedAttributes.title || changedAttributes.class) {
+		this.refreshSelf();
+		return true;
+	}
+	return this.refreshChildren(changedTiddlers);
+};
+
+exports.newrevision = newversionWidget;
+
+})();

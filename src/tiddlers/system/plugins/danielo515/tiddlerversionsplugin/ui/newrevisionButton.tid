@@ -1,0 +1,7 @@
+created: 20141023185853222
+modified: 20141023190030327
+tags: $:/tags/ViewToolbar
+title: $:/plugins/danielo515/tiddlerversionsplugin/ui/newrevisionButton
+type: text/vnd.tiddlywiki
+
+<$newrevision title=<<currentTiddler>> > NewRevision </$newrevision>
