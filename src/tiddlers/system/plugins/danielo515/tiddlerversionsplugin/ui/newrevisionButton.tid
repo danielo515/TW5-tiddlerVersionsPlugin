@@ -1,7 +1,12 @@
 created: 20141023185853222
-modified: 20141023190030327
+modified: 20141023194313120
 tags: $:/tags/ViewToolbar
 title: $:/plugins/danielo515/tiddlerversionsplugin/ui/newrevisionButton
 type: text/vnd.tiddlywiki
 
-<$newrevision title=<<currentTiddler>> > NewRevision </$newrevision>
+<$newrevision title=<<currentTiddler>> class=<<tv-config-toolbar-class>> > <$list filter="[<tv-config-toolbar-icons>prefix[yes]]">
+{{$:/plugins/danielo515/tiddlerversionsplugin/Buttons/newrevisionButton}}
+</$list>
+<$list filter="[<tv-config-toolbar-text>prefix[yes]]">
+<span class="tc-btn-text"><$text text={{$:/plugins/danielo515/tiddlerversionsplugin/language/Buttons/newrevisionButton/Caption}}/></span>
+</$list> </$newrevision>
