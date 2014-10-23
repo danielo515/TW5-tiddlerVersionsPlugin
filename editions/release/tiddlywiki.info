@@ -1,0 +1,23 @@
+{
+    "includeWikis": [
+		"../../src"
+    ],
+    "config": {
+		"disable-hfs": "yes"
+    },
+    "plugins": [
+        "tiddlywiki/codemirror",
+        "tiddlywiki/highlight"
+    ],
+    "build": {
+		"release": [
+			"--packplugin", "$:/plugins/danielo515/tiddlerVersionsPlugin",
+			"--rendertemplatedtiddler", "$:/plugins/danielo515/tiddlerVersionsPlugin", "$:/core/templates/tid-tiddler", "tiddlerVersionsPlugin.tid", "", "text/plain",
+			"--rendertiddler", "$:/plugins/danielo515/ThirdFlow/templates/save-all-wo-plugin-sources", "tiddlerVersionsPlugin.html", "text/plain"
+		]
+    },
+    "themes": [
+        "tiddlywiki/vanilla",
+        "tiddlywiki/snowwhite"
+    ]
+}
