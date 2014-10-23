@@ -1,0 +1,15 @@
+created: 20141023195351721
+modified: 20141023200205641
+title: $:/plugins/danielo515/tiddlerversionsplugin/readme
+type: text/vnd.tiddlywiki
+
+This plugin helps you to create revisions of existing tiddlers.
+
+!!How to use it
+When you install the plugin it will add a button that you can click to create a new revision of the current tiddler. 
+
+!!What a revision is
+A ''revision'' is a copy representing ''the state of a tiddler at a certain time and date''.
+
+!!Where are my revisions?
+Revisions are in a special namespace hidden from normal view. This namespace is `$:/revisions/`. The special characters `$:/` hides this namespace from normal tiddler lists and normal searches. You can find your revisions searching into the ''system tab'' of [[AdvancedSearch|$:/AdvancedSearch]]
